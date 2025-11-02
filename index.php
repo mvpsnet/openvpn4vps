@@ -221,8 +221,37 @@ if ($q == "download" && !empty($_GET['ip'])) {
 
     $ca_cert = base64_decode($_config['ca_cert']);
     $ta_key = base64_decode($_config['ta_key']);
-    $client_cert = base64_decode($profile['cert']);
-    $client_key = base64_decode($profile['key']);
+    $client_cert_raw = base64_decode($profile['cert']);
+    $client_key_raw = base64_decode($profile['key']);
+    
+    // Extract only PEM certificate (between BEGIN and END markers)
+    if (preg_match('/-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/s', $client_cert_raw, $matches)) {
+        $client_cert = trim($matches[0]) . "\n";
+    } else {
+        $client_cert = trim($client_cert_raw) . "\n";
+    }
+    
+    // Extract only PEM private key (between BEGIN and END markers)
+    if (preg_match('/-----BEGIN (?:RSA )?PRIVATE KEY-----.*?-----END (?:RSA )?PRIVATE KEY-----/s', $client_key_raw, $matches)) {
+        $client_key = trim($matches[0]) . "\n";
+    } else {
+        $client_key = trim($client_key_raw) . "\n";
+    }
+    
+    // Extract only PEM CA certificate (between BEGIN and END markers)
+    if (preg_match('/-----BEGIN CERTIFICATE-----.*?-----END CERTIFICATE-----/s', $ca_cert, $matches)) {
+        $ca_cert = trim($matches[0]) . "\n";
+    } else {
+        $ca_cert = trim($ca_cert) . "\n";
+    }
+    │
+    // Extract only PEM TLS auth key (between BEGIN and END markers)
+    if (preg_match('/-----BEGIN OpenVPN Static key V1-----.*?-----END OpenVPN Static key V1-----/s', $ta_key, $matches)) {
+        $ta_key = trim($matches[0]) . "\n";
+    } else {
+        $ta_key = trim($ta_key) . "\n";
+    }
+    
     $server_ip = $_SERVER['SERVER_ADDR'];
     $port = $_config['port'];
     $proto = $_config['proto'] ?? 'udp';
