@@ -1,7 +1,7 @@
-# wireguard4vps
+# openvpn4vps
 
 
-A simple GUI and installation script for Wireguard.
+A simple GUI and installation script for OpenVPN.
 
 ![alt text](https://www.mvps.net/img/screens/wireguard.png)
 
@@ -13,7 +13,7 @@ This is an early Alpha release. Use with care!
 
 Installation:
 
-`apt update && apt -y install curl && curl https://raw.githubusercontent.com/mvpsnet/wireguard4vps/main/wireguard4vps-install.sh|bash`
+`apt update && apt -y install curl && curl https://raw.githubusercontent.com/mvpsnet/openvpn4vps/main/openvpn4vps-install.sh|bash`
 
 The login username is: admin
 The password is randomly generated and printed when the script finishes the installation.
@@ -33,7 +33,7 @@ To reset the password and disable the 2FA, run:
 - Installation with Nginx + SSL :
 
 Clone the repository
-`https://github.com/mvpsnet/wireguard4vps.git`
+`https://github.com/mvpsnet/openvpn4vps.git`
 
 Go to `ngnix-ssl` directory and give the execution permission.
 
