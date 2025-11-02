@@ -114,21 +114,15 @@ if ($q == "add") {
             $error_msg = "You've reached the maximum number of active profiles - 250";
             break;
         }
-        $r = $db->run("select MAX(rowid) as c FROM profiles");
-        if (empty($r[0]['c']) || $r[0]['c'] < 250) {
-            $current_id = (empty($r[0]['c']) ? 1 : $r[0]['c']) + 2;
-            $current_id = intval($current_id);
-            $ip = "10.190.190.$current_id";
-        } else {
-            for ($i = 2; $i < 254; $i++) {
-                $ip = "10.190.190.$i";
-                $current_id = $i;
-                $x = $db->run("SELECT COUNT(1)  as c FROM profiles WHERE ip=:ip", [':ip' => $ip]);
-                if ($x[0]['c'] == 0) {
-                    break;
-                }
+        for ($i = 2; $i < 254; $i++) {
+            $ip = "10.190.190.$i";
+            $current_id = $i;
+            $x = $db->run("SELECT COUNT(1)  as c FROM profiles WHERE ip=:ip", [':ip' => $ip]);
+            if ($x[0]['c'] == 0) {
+                break;
             }
         }
+        
         $current_id = intval($current_id);
         $pki_dir = "/etc/openvpn/server/pki";
         $client_name = "client_" . $current_id;
