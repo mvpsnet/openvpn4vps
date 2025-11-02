@@ -40,7 +40,7 @@ if (count(get_included_files()) == 1) {
     <div class="text-gray-200 mb-2">
         <h4 class="text-gray-400 font-bold text-xl">Setup:</h4>
         <ol class="list-decimal list-inside">
-            <li>Install <a href="https://openvpn.net/community-downloads/" target="_blank" rel="noopener" class="text-blue-300 hover:text-blue-400 underline">OpenVPN</a>
+            <li>Install <a href="https://openvpn.net/community/" target="_blank" rel="noopener" class="text-blue-300 hover:text-blue-400 underline">OpenVPN</a>
             </li>
             <li>Download your OpenVPN .ovpn file</li>
             <li>Connect to the VPN</li>
