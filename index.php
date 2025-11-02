@@ -147,12 +147,6 @@ if ($q == "add") {
             break;
         }
 
-
-        if (strpos($output, "Data Base Updated") === false && strpos($output, "SUCCESS") === false) {
-            $error_msg = "Could not generate the client certificate: " . htmlspecialchars($output);
-            break;
-        }
-
         // Read client certificate and key
         $client_cert = file_get_contents("$pki_dir/pki/issued/$client_name.crt");
         $client_key = file_get_contents("$pki_dir/pki/private/$client_name.key");
