@@ -264,14 +264,10 @@ resolv-retry infinite
 nobind
 persist-key
 persist-tun
-ca [inline]
-cert [inline]
-key [inline]
-tls-auth [inline] 1
+key-direction 1
 cipher AES-256-CBC
 auth SHA256
 tls-version-min 1.2
-compress lz4-v2
 verb 3
 
 <ca>
