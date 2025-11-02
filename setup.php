@@ -122,9 +122,8 @@ server 10.190.190.0 255.255.255.0
 ifconfig-pool-persist /etc/openvpn/server/ipp.txt
 keepalive 10 120
 tls-auth /etc/openvpn/server/pki/ta.key 0
-cipher AES-256-CBC
+cipher AES-256-GCM
 auth SHA256
-compress lz4-v2
 user nobody
 group nogroup
 tls-version-min 1.2
@@ -133,6 +132,11 @@ persist-tun
 status /var/log/openvpn-status.log
 verb 3
 client-config-dir /etc/openvpn/ccd
+push \"redirect-gateway def1 bypass-dhcp\"
+push \"dhcp-option DNS 1.1.1.1\"
+script-security 2
+up /etc/openvpn/server/iptables-start.sh
+down /etc/openvpn/server/iptables-stop.sh
 ";
     @file_put_contents("/etc/openvpn/server/server.conf", $server_conf);
     
@@ -142,8 +146,17 @@ iptables -t nat -A POSTROUTING -s 10.190.190.0/24 -o $net -j MASQUERADE
 iptables -A FORWARD -i tun0 -o $net -j ACCEPT
 iptables -A FORWARD -i $net -o tun0 -j ACCEPT
 ";
-    @file_put_contents("/etc/openvpn/server/iptables.sh", $iptables_script);
-    chmod("/etc/openvpn/server/iptables.sh", 0755);
+    @file_put_contents("/etc/openvpn/server/iptables-start.sh", $iptables_script);
+    chmod("/etc/openvpn/server/iptables-start.sh", 0755);
+
+        // Create iptables rules script
+    $iptables_script = "#!/bin/bash
+iptables -t nat -D POSTROUTING -s 10.190.190.0/24 -o $net -j MASQUERADE
+iptables -D FORWARD -i tun0 -o $net -j ACCEPT
+iptables -D FORWARD -i $net -o tun0 -j ACCEPT
+";
+    @file_put_contents("/etc/openvpn/server/iptables-stop.sh", $iptables_script);
+    chmod("/etc/openvpn/server/iptables-stop.sh", 0755);
     
 echo "The setup has been completed.\n";
     echo "The network interface is: $net\n";
