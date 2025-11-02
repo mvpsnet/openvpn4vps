@@ -265,7 +265,7 @@ nobind
 persist-key
 persist-tun
 key-direction 1
-cipher AES-256-CBC
+cipher AES-256-GCM
 auth SHA256
 tls-version-min 1.2
 verb 3
