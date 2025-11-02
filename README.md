@@ -28,21 +28,3 @@ To reset the password and disable the 2FA, run:
 - Update to the latest version :
 
 `cd /var/www/html && git pull`
-
-
-- Installation with Nginx + SSL :
-
-Clone the repository
-`https://github.com/mvpsnet/openvpn4vps.git`
-
-Go to `ngnix-ssl` directory and give the execution permission.
-
-`chmod +x wg-installer.sh`
-
-Update the `$hostname` and `$mail` variable needed for the SSL certificate 
-
-then run it:
-`./wg-installer.sh`
-
-
-
