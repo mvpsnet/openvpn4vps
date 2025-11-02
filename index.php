@@ -244,7 +244,7 @@ if ($q == "download" && !empty($_GET['ip'])) {
     } else {
         $ca_cert = trim($ca_cert) . "\n";
     }
-    │
+    
     // Extract only PEM TLS auth key (between BEGIN and END markers)
     if (preg_match('/-----BEGIN OpenVPN Static key V1-----.*?-----END OpenVPN Static key V1-----/s', $ta_key, $matches)) {
         $ta_key = trim($matches[0]) . "\n";
