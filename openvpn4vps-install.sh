@@ -50,11 +50,10 @@ cd /var/www/
 if [ -d html ]; then
     mv html html_old_$(date +%s)
 fi
-# Note: Replace with your repository or copy files manually
-# git clone https://github.com/mvpsnet/openvpn4vps
-# mv openvpn4vps html
-# For now, files should already be in /var/www/html
-# If not, create directory
+
+git clone https://github.com/mvpsnet/openvpn4vps
+mv openvpn4vps html
+
 if [ ! -d html ]; then
     mkdir html
 fi
