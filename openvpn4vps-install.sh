@@ -25,10 +25,11 @@ net.ipv6.conf.all.forwarding = 1" >/etc/sysctl.d/openvpn.conf
 sysctl --system
 
 echo "[Unit]
-Description=Watch /etc/openvpn/server/server.conf for changes
+Description=Watch /etc/openvpn/server/server.conf and /etc/openvpn/ccd for changes
 
 [Path]
 PathModified=/etc/openvpn/server/server.conf
+PathChanged=/etc/openvpn/ccd
 
 [Install]
 WantedBy=multi-user.target">/etc/systemd/system/openvpn4vps.path
