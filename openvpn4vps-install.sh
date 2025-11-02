@@ -40,7 +40,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/systemctl restart openvpn@server.service
+ExecStart=/usr/bin/systemctl restart openvpn-server@server.service
 
 [Install]
 WantedBy=multi-user.target">/etc/systemd/system/openvpn4vps.service
@@ -71,7 +71,7 @@ RewriteCond %{THE_REQUEST} !\s/\.well-known/?[\s] [NC]
 RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 EOF
 
-systemctl enable --now openvpn@server
+systemctl enable --now openvpn-server@server.service
 
 systemctl enable --now openvpn4vps.service
 systemctl enable --now openvpn4vps.path
